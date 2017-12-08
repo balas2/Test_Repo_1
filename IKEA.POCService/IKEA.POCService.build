@@ -1,0 +1,32 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Compile">
+  <PropertyGroup>
+    <WorkingFolder>$(MSBuildProjectDirectory)</WorkingFolder>
+    <Configuration>Release</Configuration>
+    <SolutionFile>IKEA.POCService.sln</SolutionFile>
+  </PropertyGroup>  
+  
+   <ItemGroup>
+    <DropFolderPath Include="$(WorkingFolder)\..\dropPOCService\"/>
+  </ItemGroup>
+  
+   <Target Name="Clean">
+	<Message Text="RemoveDir @(DropFolderPath)" />
+    <RemoveDir Directories="@(DropFolderPath)"></RemoveDir>
+  </Target>
+    
+   <Target Name="CreateOutDir" DependsOnTargets="Clean">
+    <MakeDir Directories="@(DropFolderPath)"></MakeDir>
+  </Target>
+  
+  <Target Name="Compile" DependsOnTargets="CreateOutDir">
+	<Message Text="Compile started..." />
+	<Message Text="DropFolderPath @(DropFolderPath.FullPath)" />
+    <Message Text="=== COMPILING $(Configuration) configuration ===" />
+    <MSBuild 
+			Projects="$(SolutionFile)" 
+			Properties="OutDir=%(DropFolderPath.FullPath); Configuration=$(Configuration)"/>
+	<Message Text="Compile End" />
+  </Target>  
+
+
+</Project>

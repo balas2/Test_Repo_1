@@ -1,0 +1,2 @@
+APP_NAME=POC
+SERVICE_URL=http://testpte.simcreatingframeworkservice.ikeadt.com/Services/DAOService.svc
